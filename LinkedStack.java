@@ -3,6 +3,7 @@
  *
  * @author  Marcel Turcotte (turcotte@eecs.uottawa.ca)
  */
+import java.util.Iterator;
 
 public class LinkedStack<E> implements Stack<E> {
 
@@ -78,21 +79,58 @@ public class LinkedStack<E> implements Stack<E> {
     /** Removes the top element of the stack. The element inserted at
      * the bottom of the stack.
      */
-
+	//not sure best way to go about this
+	//start by poping the top, adding to new temp stack, iterating over remaining stack to add to temp
+	//then replace old stack with temp stack
     public void roll() {
-
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
-
+        E a;
+        a=this;
+        E tmp;
+        if(top==null){
+	       throw new UnsupportedOperationException("Invalid operation for linked stack. Method roll.");
+        }else{
+            if(tmp==null){
+                tmp=top;
+            }else{
+                if(a.hasNext()){
+                    tmp=a.push();
+                }
+            }
+        }
+        a=tmp;
+        tmp=null;
     }
 
     /** Removes the botttom element. The element is inserted on the
      * top of the stack.
      */
-
+	//ok so make new temp stack, iterate from second to end
+	//push first onto temp
+	//replace old with temp
     public void unroll() {
-
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
-	
+        E a;
+        a=this;
+        E tmp;
+        E tmpe;
+        if (top==null){
+	       throw new UnsupportedOperationException("Invalid operation for linked stack. Method unroll.");
+	   }else{
+            if(!a.isEmpty()){
+                tmp=a.pop();
+            }else if(a.isEmpty()){
+                tmpe=tmp.pop();
+                a=tmp;
+                tmp=null;
+            }else if(!tmpe.isEmpty()){
+                if(a.hasNext()){
+                    tmp=a.pop();
+                }
+            }
+       }
+       tmp=tmpe;
+       a=tmp;
+       tmp=null;
+       tmpe=null;
     }
 
     /** Returns a string representation of the stack.
@@ -116,5 +154,7 @@ public class LinkedStack<E> implements Stack<E> {
 
 	return stackStr.toString();
     }
-    
+    public static void main (String args[]){
+        System.out.println("nothing");
+    }
 }
