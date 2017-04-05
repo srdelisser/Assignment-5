@@ -3,8 +3,9 @@
  *
  * @author  Marcel Turcotte (turcotte@eecs.uottawa.ca)
  */
+import java.util.Iterator;
 
-public class LinkedStack<E> implements Stack<E> {
+public class LinkedStack<E> implements Stack<E>, Iterable<E> {
 
     // Objects of the class Elem are used to store the elements of the
     // stack.
@@ -78,21 +79,59 @@ public class LinkedStack<E> implements Stack<E> {
     /** Removes the top element of the stack. The element inserted at
      * the bottom of the stack.
      */
-
+	//not sure best way to go about this
+	//start by poping the top, adding to new temp stack, iterating over remaining stack to add to temp
+	//then replace old stack with temp stack
+    //NONE OF THIS WORKS JUST IGNORE IT FOR NOW ILL FIGURE IT OUT EVENTUALLY
     public void roll() {
-
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
-
+        LinkedStack<E> a = new LinkedStack<E>(); //this is the original stack
+        a=this;
+        LinkedStack<E> tmp = new LinkedStack<E>(); //this will be the new stack
+        if(top==null){//if a is empty
+	       throw new UnsupportedOperationException("Invalid operation for linked stack. Method roll.");
+        }else{
+            if(tmp==null){//if tmp is empty then take the top element of a and make it the bottom element of tmp
+                tmp=(LinkedStack<E>)a.pop();
+            }else{//once that element has been added, want to go through a from bottom to top
+                if(a.Next()){
+                    tmp=a.push();
+                }
+            }
+        }
+        a=tmp;
+        tmp=null;
     }
 
     /** Removes the botttom element. The element is inserted on the
      * top of the stack.
      */
-
+	//ok so make new temp stack, iterate from second to end
+	//push first onto temp
+	//replace old with temp
     public void unroll() {
-
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
-	
+        LinkedStack<E> a = new LinkedStack<E>(); //this is the original stack
+        a=this;
+        LinkedStack<E> tmp = new LinkedStack<E>(); //this will be the new stack
+        E tmpe;
+        if (top==null){
+	       throw new UnsupportedOperationException("Invalid operation for linked stack. Method unroll.");
+	   }else{
+            if(!a.isEmpty()){
+                tmp=a.pop();
+            }else if(a.isEmpty()){
+                tmpe=tmp.pop();
+                a=tmp;
+                tmp=null;
+            }else if(!tmpe.isEmpty()){
+                if(a.Next()){
+                    tmp=a.pop();
+                }
+            }
+       }
+       tmp=tmpe;
+       a=tmp;
+       tmp=null;
+       tmpe=null;
     }
 
     /** Returns a string representation of the stack.
@@ -116,5 +155,7 @@ public class LinkedStack<E> implements Stack<E> {
 
 	return stackStr.toString();
     }
-    
+    public static void main (String args[]){
+        System.out.println("nothing");
+    }
 }
