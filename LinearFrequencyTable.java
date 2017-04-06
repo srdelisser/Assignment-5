@@ -56,10 +56,37 @@ public class LinearFrequencyTable implements FrequencyTable {
      */
 
     public long get(String key) {
+	    if(key==null){
+		    throw Exception("Nothing there");
+	    }
+	    return get(first,key);//calls the recursive method to start 
 
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
+	//throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
 	
     }
+	//this is a recursive method thatll go through and count up the frequency
+	private long get(Node<E> p, String key){
+		if(p==null){//base case
+			throw new OutOfBoundsException();
+		}
+		if (size==0){//base case
+			if(p.key==key){
+				count++;
+				//try to reset size here perhaps
+			}
+			return count;
+		}
+		//general case
+		if(p.key==key){
+			count++;
+			size--;//should make it hit the bottom of the recursion
+		}
+		return get(p.next,key);//if//find way to actually make recursive
+		//need way to make size the actual size again
+		//return count;
+		
+	}
+
 
     /** Creates an entry in the frequency table and initializes its
      *  count to zero. The keys are kept in order (according to their
