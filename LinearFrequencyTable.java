@@ -59,6 +59,7 @@ public class LinearFrequencyTable implements FrequencyTable {
 
     public long get(String key) {
 	    if(key==null){
+			//needs to maybe throw another typ of exception
 		    throw NoSuchElementException("Nothing there");
 	    }
 	    return get(first,key);//calls the recursive method to start 
@@ -68,9 +69,11 @@ public class LinearFrequencyTable implements FrequencyTable {
     }
 	//this is a recursive method thatll go through and count up the frequency
 	private long get(Node<E> p, String key){
+		//not sure if a need
 		if(p==null){//base case
 			throw new OutOfBoundsException();
 		}
+		//*************way #1
 		if (size==0){//base case
 			if(p.key==key){
 				count++;
@@ -81,11 +84,20 @@ public class LinearFrequencyTable implements FrequencyTable {
 		//general case
 		if(p.key==key){
 			count++;
-			size--;//should make it hit the bottom of the recursion
+			//size--;//should make it hit the bottom of the recursion
 		}
-		return get(p.next,key);//if//find way to actually make recursive
-		//need way to make size the actual size again
-		//return count;
+		//************way #2
+		//base case
+		if(p.next!=null){//check until we hit the last one
+			return get(p.next,key);//if//find way to actually make recursive
+			//need way to make size the actual size again
+			//return count;
+		}else{//
+			if (count==0){//if we have reached the end of the thing and we didnt find the key
+				throw NoSuchElementException("Nothing there");
+			}
+			return count;//else  return frequency
+		}
 		
 	}
 
