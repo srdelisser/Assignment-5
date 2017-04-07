@@ -17,17 +17,19 @@ public class LinearFrequencyTable implements FrequencyTable {
 		private Elem previous;
 		private Elem next;
 
-	private Elem(String key, Elem previous, Elem next) {
-	    this.key = key;
-	    this.count = 0;
-	    this.previous = previous;
-	    this.next = next;
-	}
+		private Elem(String key, Elem previous, Elem next) {
+			this.key = key;
+			this.count = 0;
+			this.previous = previous;
+			this.next = next;
+		}
 
     }
 
     private Elem head;
     private int size;
+	//my own variables
+	private int counterThing;
 
     /** Constructs and empty <strong>FrequencyTable</strong>.
      */
@@ -97,10 +99,21 @@ public class LinearFrequencyTable implements FrequencyTable {
      */
 
     public void init(String key) {
-
-		throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
+		long
+		size=a;
+		counterThing
+		if 
+			throw new IllegalArgumentException();
 
     }
+	
+	private void init(Node<E> p, String key){
+		if(p.key==key){//base case
+			throw new IllegalArgumentException();
+			//stop the screach case nothing should 
+		}
+		init(p.next,key);
+	}
 
     /** The method updates the frequency associed with the key by one.
      *
