@@ -29,7 +29,7 @@ public class LinearFrequencyTable implements FrequencyTable {
     private Elem head;
     private int size;
 	//my own variables
-	private int counterThing;
+	private int counterThing;// not sure hwta i want to do with it
 
     /** Constructs and empty <strong>FrequencyTable</strong>.
      */
@@ -47,7 +47,7 @@ public class LinearFrequencyTable implements FrequencyTable {
      */
 
     public int size() {
-	return size;
+		return size;
     }
   
     /** Returns the frequency value associated with this key.
@@ -104,6 +104,8 @@ public class LinearFrequencyTable implements FrequencyTable {
 		counterThing
 		if 
 			throw new IllegalArgumentException();
+		
+		init(first,key);//calling the recursive methody
 
     }
 	
@@ -112,7 +114,13 @@ public class LinearFrequencyTable implements FrequencyTable {
 			throw new IllegalArgumentException();
 			//stop the screach case nothing should 
 		}
-		init(p.next,key);
+		if (p.next!=null){//checking if the next one is null
+			init(p.next,key);//if not null it calls the method again to recurive
+		}else{//if the next one is null, then we have hit the bottom of whatever and should make a new Node with this key
+			
+			
+		}
+		
 	}
 
     /** The method updates the frequency associed with the key by one.
