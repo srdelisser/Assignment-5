@@ -29,7 +29,7 @@ public class LinearFrequencyTable implements FrequencyTable {
     private Elem head;
     private int size;
 	//my own variables
-	private int counterThing;// not sure hwta i want to do with it
+	//private int counterThing;// not sure hwta i want to do with it
 
     /** Constructs and empty <strong>FrequencyTable</strong>.
      */
@@ -58,11 +58,14 @@ public class LinearFrequencyTable implements FrequencyTable {
      */
 
     public long get(String key) {
+		/*
 	    if(key==null){
 			//needs to maybe throw another typ of exception
 		    throw NoSuchElementException("Nothing there");
 	    }
-	    return get(first,key);//calls the recursive method to start 
+		*/
+	    return get(head.next,key);//calls the recursive method to start 
+		//head.next cause head is null which aint gonna work
 
 	//throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
 	
@@ -70,35 +73,27 @@ public class LinearFrequencyTable implements FrequencyTable {
 	//this is a recursive method thatll go through and count up the frequency
 	private long get(Node<E> p, String key){
 		//not sure if a need
+		//if
 		if(p==null){//base case
 			throw new OutOfBoundsException();
 		}
-		//*************way #1
-		if (size==0){//base case
-			if(p.key==key){
-				count++;
-				//try to reset size here perhaps
-			}
-			return count;
-		}
 		//general case
 		if(p.key==key){
-			count++;
+			return p.count;
 			//size--;//should make it hit the bottom of the recursion
-		}
-		//************way #2
-		//base case
-		if(p.next!=null){//check until we hit the last one
-			return get(p.next,key);//if//find way to actually make recursive
-			//need way to make size the actual size again
-			//return count;
-		}else{//
-			if (count==0){//if we have reached the end of the thing and we didnt find the key
+		}else{
+			if(p.next!=null){//check until we hit the last one
+				return get(p.next,key);//if//find way to actually make recursive
+				//need way to make size the actual size again
+				//return count;
+			}else{//
+				//if we have reached the end of the thing and we didnt find the key
 				throw NoSuchElementException("Nothing there");
 			}
-			return count;//else  return frequency
+			//return count;//else  return frequency
 		}
 		
+		//base case		
 	}
 
 
@@ -111,13 +106,15 @@ public class LinearFrequencyTable implements FrequencyTable {
      */
 
     public void init(String key) {
-		long
+		/*long
 		size=a;
 		counterThing
 		if 
 			throw new IllegalArgumentException();
+		*/
 		
-		init(first,key);//calling the recursive methody
+		init(head.next,key);//calling the recursive methody
+		//head.next cause head is null which aint gonna work
 
     }
 	
@@ -128,8 +125,13 @@ public class LinearFrequencyTable implements FrequencyTable {
 		}
 		if (p.next!=null){//checking if the next one is null
 			init(p.next,key);//if not null it calls the method again to recurive
-		}else{//if the next one is null, then we have hit the bottom of whatever and should make a new Node with this key
 			
+		}else{//if the next one is null, then we have hit the bottom of whatever and should make a new Node with this key
+			Elem newNode;
+			//dont know which way that count zero should be at, like th front or the back
+			newNode = new Elem(key, p, head); // making of the new node with key as element
+			//newNode.count=0;
+			size ++;
 			
 		}
 		
@@ -142,10 +144,30 @@ public class LinearFrequencyTable implements FrequencyTable {
      */
 
     public void update(String key) {
-	
-		throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
-
+		//throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
+		update(head.next, String key);//head.next cause head is null which aint gonna work
     }
+	
+	private void update(Node<E> p, String key){
+		
+		if (p!=null){//checking if the next one is null
+			if(p.key==key){
+				p.count++;//if it hits here we leave
+			}else{
+				init(p.next,key);
+			}
+		}else{
+			throw new NoSuchElementException();//cause if get here then we haven't found anything at all 
+		}
+		/*
+		else if(p.next!=null){
+			init(p.next,key);//if not null it calls the method again to recurive
+		}
+		}else{//if the next one is null, then we have hit the bottom of whatever and should make a new Node with this key
+				
+		}
+		*/
+	}
 
     /** Returns the list of keys in order, according to the method
      *  <strong>compareTo</strong> of the key objects.
@@ -158,7 +180,11 @@ public class LinearFrequencyTable implements FrequencyTable {
 		throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
 
     }
-
+	
+	private LinkedList<String> keys(Node<E> p){
+		
+	}
+	
     /** Returns an array containing the frequencies of the keys in the
      *  order specified by the method <strong>compareTo</strong> of
      *  the key objects.
@@ -171,6 +197,9 @@ public class LinearFrequencyTable implements FrequencyTable {
 	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
 
     }
+	private long[] values(Node<E> p){
+		
+	}
 
     /** Returns a <code>String</code> representations of the elements
      * of the frequency table.
