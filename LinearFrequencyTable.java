@@ -130,6 +130,7 @@ public class LinearFrequencyTable implements FrequencyTable {
 			Elem newNode;
 			//dont know which way that count zero should be at, like th front or the back
 			newNode = new Elem(key, p, head); // making of the new node with key as element
+			head.previous=newNode;//dont know if we this to set the previous of head to the new element
 			//newNode.count=0;
 			size ++;
 			
@@ -176,12 +177,14 @@ public class LinearFrequencyTable implements FrequencyTable {
      */
 
     public LinkedList<String> keys() {
-
-		throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
+		
+		return keys(head.next);
+		//throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
 
     }
 	
 	private LinkedList<String> keys(Node<E> p){
+		Linked
 		
 	}
 	
