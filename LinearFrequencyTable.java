@@ -70,19 +70,21 @@ public class LinearFrequencyTable implements FrequencyTable {
 	//throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
 	
     }
-	//this is a recursive method thatll go through and count up the frequency
+	//this is a recursive method to return the frequency of given key
 	private long get(Node<E> p, String key){
 		//not sure if a need
 		//if
-		if(p==null){//base case
+		/*
+		if(key==null){//base case
 			throw new OutOfBoundsException();
 		}
+		*/
 		//general case
 		if(p.key==key){
 			return p.count;
 			//size--;//should make it hit the bottom of the recursion
 		}else{
-			if(p.next!=null){//check until we hit the last one
+			if(p.next.key!=null){//check until we hit the last one ADDED '.key' to check the key value instead
 				return get(p.next,key);//if//find way to actually make recursive
 				//need way to make size the actual size again
 				//return count;
@@ -123,17 +125,27 @@ public class LinearFrequencyTable implements FrequencyTable {
 			throw new IllegalArgumentException();
 			//stop the screach case nothing should 
 		}
-		if (p.next!=null){//checking if the next one is null
+		if (p.next.key!=null){//checking if the next one is null
 			init(p.next,key);//if not null it calls the method again to recurive
 			
 		}else{//if the next one is null, then we have hit the bottom of whatever and should make a new Node with this key
 			Elem newNode;
 			//dont know which way that count zero should be at, like th front or the back
-			newNode = new Elem(key, p, head); // making of the new node with key as element
+			newNode = new Elem(key, p, head); // making of the new node with key as element, and the 
 			head.previous=newNode;//dont know if we this to set the previous of head to the new element
+			p.next=newNode;//Also dont know if we really need but eh
 			//newNode.count=0;
 			size ++;
 			
+			/*this code should add the new node at the front of the list instead
+			Elem newNode;
+			Elem temp=head.next;//just the be safe
+			newNode=new Elem(key, head, temp);
+			head.next=newNode;
+			temp.pre=newNode;//makes 
+			//newNode=
+			size++;
+			*/
 		}
 		
 	}
@@ -151,7 +163,7 @@ public class LinearFrequencyTable implements FrequencyTable {
 	
 	private void update(Node<E> p, String key){
 		
-		if (p!=null){//checking if the next one is null
+		if (p.key!=null){//checking if the next one is null
 			if(p.key==key){
 				p.count++;//if it hits here we leave
 			}else{
@@ -184,7 +196,28 @@ public class LinearFrequencyTable implements FrequencyTable {
     }
 	
 	private LinkedList<String> keys(Node<E> p){
-		Linked
+		LinkedList<String> listyList;
+		listyList=new LinkedList<String>;
+		
+		//if(p.key==null){//theres nothing in the list
+		//	return -1;
+		//}
+		//want to go though and add all the keys to the linked list by comparing them
+		
+		/*
+		if(p.next.key==null){//so this is a case for when there is only one item present in the list
+			listyList.push(p.key);
+			return listyList;
+		}
+		*/
+		Elem temp;
+		if(p.key!=null){
+			listyList.push(p.key);//adds the key to the list
+			return keys(p.next);//call again
+		}else{//when it does becomee null, aka hits the dummy node again
+			return listyList;//returns the list
+		}
+		
 		
 	}
 	
@@ -197,7 +230,7 @@ public class LinearFrequencyTable implements FrequencyTable {
 
     public long[] values() {
 
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
+		throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
 
     }
 	private long[] values(Node<E> p){
