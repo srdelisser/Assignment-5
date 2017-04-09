@@ -223,7 +223,7 @@ public class LinearFrequencyTable implements FrequencyTable {
 		//if(p.previous==head)
 		//need to firgure out if in a case like 3,2,1 it will end up like 1,2,3 or 2,1,3
 		if(p.key!=null){
-			if(!p.compareTo(p.previous)){//if p is smaller then the key before it
+			if(!p.key.compareTo(p.previous.key)){//if p is smaller then the key before it
 				//i wanna add in before the previous then
 				listyList.add(size, p.key);//this will make it replace the spot that previous once held
 
@@ -262,7 +262,7 @@ public class LinearFrequencyTable implements FrequencyTable {
 		}
 		
 		if(p.key!=null){
-			if(!p.compareTo(p.previous)){//if p is smaller then the key before it
+			if(!p.key.compareTo(p.previous.key)){//if p is smaller then the key before it
 				tmp= countArray[counter-1];//saves the vaule of the previuos in this value
 				countArray[counter-1]=null;
 				countArray[counter-1]=p.count;
@@ -301,8 +301,9 @@ public class LinearFrequencyTable implements FrequencyTable {
 		str.append("}");
 		return str.toString();
     }
-
+/*
 	private boolean compareTo(Node<E> p){
 		return this.key>p.key;
 	}
+	*/
 }
