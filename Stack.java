@@ -34,8 +34,10 @@ public interface Stack<E> {
      */
     
     void push( E element);
-
+    /** Rolls the stack     
+     */
     void roll();
-
+    /** Unrolls the stack.
+     */
     void unroll();
 }
