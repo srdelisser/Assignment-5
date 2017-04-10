@@ -62,6 +62,12 @@ public class LinearFrequencyTable implements FrequencyTable {
      */
 
     public long get(String key) {
+		if(key==null){
+			throw new IllegalArguemnetException("honey stop");
+		}
+	    for(int i=0;i<size;i++){
+			
+		}
 		/*
 	    if(key==null){
 			//needs to maybe throw another typ of exception
