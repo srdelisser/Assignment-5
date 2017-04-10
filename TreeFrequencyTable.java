@@ -11,9 +11,9 @@ public class TreeFrequencyTable implements FrequencyTable {
     // Stores the elements of this binary search tree (frequency
     // table)
     
-    private static class Elem {
+	private static class Elem {
     
-        private String key;
+    	private String key;
         private long count;
     
         private Elem left;
@@ -46,11 +46,46 @@ public class TreeFrequencyTable implements FrequencyTable {
      */
   
     public void init(String key) {
+		if (key == null){
+			throw new IllegalArgumentException();
+		}
+		Elem<E> current = root;
+		
+		if ( current == null ) {
+			root = new Elem<E>( key);
+		}
+		boolean init = false;
+
+		while(!added){
+			int test = key.compareTo(current.key); //compare object with current node
+			if (test==0){//the same
+				init = true; 
+				
+			}else if(test<0){//less then
+				if (current.left==null){ //if left is empty
+					current.left = new Elem<E>(key);
+					init = true;
+				}else{
+					current = current.left;
+				}
+				
+			}else{//greater then
+				if (current.right==null){//if right is empty
+					current.right = new Elem<E>(key);
+					init = true;
+				}else{
+					current = current.right;
+				}
+			}
+		}
+		
     
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
+	//throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
+		//init(key,root);
     
     }
-  
+	
+	  
     /** The method updates the frequency associed with the key by one.
      *
      * @param key key with which the specified value is to be associated
@@ -58,7 +93,40 @@ public class TreeFrequencyTable implements FrequencyTable {
   
     public void update(String key) {
     
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
+		if (key == null){
+			throw new IllegalArgumentException("null key");
+		}
+		Elem<E> current = root;
+		
+		if ( current == null ) {
+			root = new Elem<E>( key);
+		}
+		boolean updated = false;
+
+		while(!added){
+			int test = key.compareTo(current.key); //compare object with current node
+			if (test==0){//the same
+				current.count++; //updates the counter if its the same
+				updated=true;
+				
+			}else if(test<0){//less then
+				if (current.left==null){ //if left is empty
+					throw new NoSuchElementException("Element not found");//if it hit the end and its null
+					updated=true;
+				}else{
+					current = current.left;
+				}
+				
+			}else{//greater then
+				if (current.right==null){//if right is empty
+					throw new NoSuchElementException("Element not found");//if it hits the end of the rright and it is null
+					updated=true;
+				}else{
+					current = current.right;
+				}
+			}
+		}
+		//throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
 
     }
   
@@ -71,8 +139,41 @@ public class TreeFrequencyTable implements FrequencyTable {
      */
   
     public long get(String key) {
-    
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
+		
+    	if (key == null){
+			throw new IllegalArgumentException("null key");
+		}
+		Elem<E> current = root;
+		
+		if ( current == null ) {
+			root = new Elem<E>( key);
+		}
+		boolean get = false;
+
+		while(!added){
+			int test = key.compareTo(current.key); //compare object with current node
+			if (test==0){//the same
+				return current.count; //updates the counter if its the same
+				//get=true;
+				
+			}else if(test<0){//less then
+				if (current.left==null){ //if left is empty
+					throw new NoSuchElementException("Element not found");//if it hit the end and its null
+					get=true;
+				}else{
+					current = current.left;
+				}
+				
+			}else{//greater then
+				if (current.right==null){//if right is empty
+					throw new NoSuchElementException("Element not found");//if it hits the end of the rright and it is null
+					get=true;
+				}else{
+					current = current.right;
+				}
+			}
+		}
+		//throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
 
     }
   
@@ -84,7 +185,7 @@ public class TreeFrequencyTable implements FrequencyTable {
 
     public LinkedList<String> keys() {
 
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
+		throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
 
     }
 
@@ -96,7 +197,7 @@ public class TreeFrequencyTable implements FrequencyTable {
 
     public long[] values() {
 
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
+		throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
 
     }
 
