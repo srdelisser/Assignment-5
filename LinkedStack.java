@@ -9,7 +9,19 @@ public class LinkedStack<E> implements Stack<E>{
 
     // Objects of the class Elem are used to store the elements of the
     // stack.
-    
+    //Don't think these are actually needed, if we do it recursively I think I get it
+   // private int count = 0;
+ //   private int counter=1;
+   // LinkedStack<E> a = new LinkedStack<E>(); //this is the original stack
+//    LinkedStack<E> tmp = new LinkedStack<E>();
+  //  LinkedStack<E> tmptwo = new LinkedStack<E>();
+    //LinkedStack<E> b = new LinkedStack<E>(); //this is the original stack
+//    LinkedStack<E> temp = new LinkedStack<E>();
+  //  LinkedStack<E> temptwo= new LinkedStack<E>();
+    //LinkedStack<E> tempthree = new LinkedStack<E>();
+    E end;
+
+    private int size;
     private static class Elem<T> {
         private T value;
         private Elem<T> next;
@@ -47,6 +59,7 @@ public class LinkedStack<E> implements Stack<E>{
 	}
 	
         top = new Elem<E>(value, top);
+        size++;
     }
 
     /** Returns the top element, without removing it.
@@ -82,64 +95,56 @@ public class LinkedStack<E> implements Stack<E>{
 	//not sure best way to go about this
 	//start by poping the top, adding to new temp stack, iterating over remaining stack to add to temp
 	//then replace old stack with temp stack
-    //NONE OF THIS WORKS JUST IGNORE IT FOR NOW ILL FIGURE IT OUT EVENTUALLY
+   
     public void roll() {
-        LinkedStack<E> a = new LinkedStack<E>(); //this is the original stack
-        a=this;
-        LinkedStack<E> tmp = new LinkedStack<E>(); //this will be the new stack
-        LinkedStack<E> tmptwo = new LinkedStack<E>();
-
-        if(top==null){
-	       throw new UnsupportedOperationException("Invalid operation for linked stack. Method roll.");
-        }else{
-            if(tmptwo==null){//if tmp is empty then take the top element of a and make it the bottom element of tmp
-                tmptwo.push(a.pop());
-            }else{//once that element has been added, want to go through a from bottom to top
-                while(top!=null){
-                    tmp.push(a.pop());
-                }
-            }
+        if(top!=null){
+            roll(pop());//start recursion
         }
-        tmp.push(tmptwo.pop());
-        a=tmp;
-        tmp=null;
-        tmptwo=null;
     }
 
+    private void roll(E b){
+        if (top==null){
+            push(b);
+        }else{
+            E temp = pop();
+            roll(b);
+            push(temp);
+        }
+    }
     /** Removes the botttom element. The element is inserted on the
      * top of the stack.
      */
 	//ok so make new temp stack, iterate from second to end
 	//push first onto temp
 	//replace old with temp
+    //jk that didn't work I'll try recursion and actually read the instructions f/n/o
     public void unroll() {
-        LinkedStack<E> a = new LinkedStack<E>(); //this is the original stack
-        a=this;
-        LinkedStack<E> tmp = new LinkedStack<E>(); //this will be the new stack
-        LinkedStack<E> tmptwo = new LinkedStack<E>();
-        LinkedStack<E> tmpthree = new LinkedStack<E>();
-        if (top==null){
-	       throw new UnsupportedOperationException("Invalid operation for linked stack. Method unroll.");
-	   }else{
-            int count = 0;
-            while(top!=null){
-                tmp.push(a.pop());
-            }
-            if (tmptwo==null && count == 0){
-                tmptwo.push(tmp.pop());
-                count = 1;
-            }
-            tmpthree.push(tmptwo.pop());
-            while(tmp!=null){
-                tmpthree.push(tmp.pop());
+        end=null;
+        if(top!=null){
+            E temporary=pop();
+            if(top==null){
+                push(temporary);
+            }else{
+                push(temporary);
+                unroller();
+                push(end);
             }
         }
-       a=tmpthree;
-       tmp=null;
-       tmptwo=null;
-       tmpthree=null;
     }
 
+   // E finally;
+    private void unroller(){
+        E now = pop();
+        E temporary = pop();
+        if(top!=null){
+            push(temporary);
+            unroller();
+            push(now);
+        }else{
+            end=temporary;
+            push(now);
+        }
+    }
     /** Returns a string representation of the stack.
      *
      * @return a string representation
@@ -160,18 +165,5 @@ public class LinkedStack<E> implements Stack<E>{
 	stackStr.append("}");
 
 	return stackStr.toString();
-    }
-    public static void main (String args[]){
-        Stack<String> s ;
-        s = new LinkedStack<String>();
-        s.push("a");
-        s.push("b");
-        s.push("c");
-        s.push("d");
-        s.push("e");
-        System.out.println(s);
-        s.roll();
-        s.roll();
-        System.out.println(s);
     }
 }
