@@ -101,7 +101,9 @@ public class LinkedStack<E> implements Stack<E>{
             roll(pop());//start recursion
         }
     }
-
+	/**Recursive method for roll
+	*@param element to be manipulated
+	*/
     private void roll(E b){
         if (top==null){
             push(b);
@@ -133,6 +135,8 @@ public class LinkedStack<E> implements Stack<E>{
     }
 
    // E finally;
+	/**Recursive method for unroll
+	*/
     private void unroller(){
         E now = pop();
         E temporary = pop();
