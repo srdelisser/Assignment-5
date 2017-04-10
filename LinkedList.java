@@ -39,7 +39,7 @@ public class LinkedList<E> {
         public E next() {
       
             if (current.next == head) {
-        	throw new NoSuchElementException();
+            throw new NoSuchElementException();
             }
       
             current = current.next ; // move the cursor forward
@@ -80,10 +80,24 @@ public class LinkedList<E> {
      * @return an iterator for this list
      */
 
-    public Iterator<E> iterator(int stop) {
-
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
-	
+    public Iterator<E> iterator(E stop) {
+        LinkedListIterator iteratorA = new LinkedListIterator();
+        int posA=0;
+        for (int x=0; x<size();x++){
+            if(x==0){
+                addFirst(iteratorA.next());
+                posA++;
+            }else{
+                //E next= next();
+                if(iteratorA.hasNext()==true && iteratorA.next()!=stop){
+                    add(posA, iteratorA.next());
+                    posA++;
+                }else if(iteratorA.next()==stop){
+                    addLast(stop);
+                }
+            }
+        }
+        return iteratorA;
     }
     
     /**
@@ -95,10 +109,29 @@ public class LinkedList<E> {
      * @return an iterator for this list
      */
 
-    public Iterator<E> iterator(int start, int stop) {
-
-	throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
-	
+    public Iterator<E> iterator(E start, E stop) {
+        LinkedListIterator iteratorB = new LinkedListIterator();
+        int posB=0;
+        int count=0;
+        for (int y=0; y<size();y++){
+            if(count==0){
+                if(iteratorB.next()==start){
+                    addFirst(iteratorB.next());
+                    posB++;
+                }else{
+                    count=0;
+                }
+            }else{
+                //E next= next();
+                if(iteratorB.hasNext()==true && iteratorB.next()!=stop){
+                    add(posB, iteratorB.next());
+                    posB++;
+                }else if(iteratorB.next()==stop){
+                    addLast(stop);
+                }
+            }
+        }
+        return iteratorB;
     }
 
     /** Returns the size of the list.
@@ -131,12 +164,12 @@ public class LinkedList<E> {
 
     public void addFirst(E obj) {
 
-	if (obj == null) {
-	    throw new NullPointerException();
-	}
-	
-	addAfter(head, obj);
-	
+    if (obj == null) {
+        throw new NullPointerException();
+    }
+    
+    addAfter(head, obj);
+    
     }
 
     /** Inserts the specified element at the end of this list.
@@ -145,12 +178,12 @@ public class LinkedList<E> {
      */
 
     public void addLast(E obj) {
-	
-	if (obj == null) {
-	    throw new NullPointerException();
-	}
-	
-	addAfter(head.previous, obj);
+    
+    if (obj == null) {
+        throw new NullPointerException();
+    }
+    
+    addAfter(head.previous, obj);
 
     }
     
@@ -163,10 +196,10 @@ public class LinkedList<E> {
 
     public void add(int pos, E obj) {
 
-	if (obj == null) {
-	    throw new NullPointerException();
-	}
-	
+    if (obj == null) {
+        throw new NullPointerException();
+    }
+    
         if (pos < 0 || pos > size) {
             throw new IndexOutOfBoundsException(Integer.toString(pos));
         }
@@ -178,7 +211,7 @@ public class LinkedList<E> {
             before = before.next;
         }
 
-	addAfter(before, obj);
+    addAfter(before, obj);
 
     }
 
@@ -204,7 +237,7 @@ public class LinkedList<E> {
             throw new NoSuchElementException();
         }
 
-	remove(head.next);
+    remove(head.next);
     }
 
     /** Removes the last element from this list.
@@ -215,8 +248,8 @@ public class LinkedList<E> {
         if (size == 0) {
             throw new NoSuchElementException();
         }
-	
-	remove(head.previous);
+    
+    remove(head.previous);
 
     }
     
@@ -239,7 +272,7 @@ public class LinkedList<E> {
             current = current.next;
         }
 
-	remove(current);
+    remove(current);
 
     }
 
@@ -252,7 +285,7 @@ public class LinkedList<E> {
 
     public E get(int pos) {
 
-	if (pos < 0 || pos >= size) {
+    if (pos < 0 || pos >= size) {
             throw new IndexOutOfBoundsException(Integer.toString(pos));
         }
 
@@ -263,7 +296,7 @@ public class LinkedList<E> {
             current = current.next;
         }
 
-	return current.value;
+    return current.value;
     }
 
     /** Returns a String representation of this list.
@@ -273,17 +306,17 @@ public class LinkedList<E> {
 
     public String toString() {
 
-	StringBuffer str = new StringBuffer("{");
-	Elem<E> p = head.next;
+    StringBuffer str = new StringBuffer("{");
+    Elem<E> p = head.next;
 
-	while (p != head) {
-	    str.append(p.value);
-	    if (p.next != head) {
-		str.append(",");
-	    }
-	    p = p.next;
-	}
-	str.append("}");
-	return str.toString();
+    while (p != head) {
+        str.append(p.value);
+        if (p.next != head) {
+        str.append(",");
+        }
+        p = p.next;
+    }
+    str.append("}");
+    return str.toString();
     }
 }
