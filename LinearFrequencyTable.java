@@ -30,9 +30,9 @@ public class LinearFrequencyTable implements FrequencyTable {
     private int size;
 	//my own variables
 	//private int counterThing;// not sure hwta i want to do with it
-	private LinkedList<String> listyList;//my list
+	//private LinkedList<String> listyList;//my list
 	//listyList=new LinkedList<String>;
-	private long[] countArray;//mt array
+	//private long[] countArray;//mt array
 	
 	
     /** Constructs and empty <strong>FrequencyTable</strong>.
@@ -65,7 +65,7 @@ public class LinearFrequencyTable implements FrequencyTable {
 		if (key == null){
 			throw new IllegalArgumentException("key is null");
 		}
-		Elem<E> p = head.next;
+		Elem p = head.next;
 		
 		while(p.key!=null){
 			if(key.compareTo(p.key)==0){//if they are the same
@@ -91,7 +91,7 @@ public class LinearFrequencyTable implements FrequencyTable {
 			throw new IllegalArgumentException("key is null");
 		}
 		
-		Elem<E> p = head.next;
+		Elem p = head.next;
 		//if(p.next==null){
 		
 		while(p.key!=null){
@@ -147,16 +147,16 @@ public class LinearFrequencyTable implements FrequencyTable {
 
     public LinkedList<String> keys() {
 		LinkedList<String> listyList;
-		listyList=new LinkedList<String>;//heres where i make a new list thingy, cause it makes sense to me
+		listyList=new LinkedList<String>();//heres where i make a new list thingy, cause it makes sense to me
 		
 		Elem runner=head.next;
 		
 		while(runner.key!=null){
-			listylist.addLast(runner,key);
+			listyList.addLast(runner.key);
 			runner=runner.next;
 		}
 		//throw new UnsupportedOperationException("IMPLEMENT THIS METHOD");
-		return listylist;
+		return listyList;
     }
 	
     /** Returns an array containing the frequencies of the keys in the
@@ -167,13 +167,13 @@ public class LinearFrequencyTable implements FrequencyTable {
      */
 
     public long[] values() {
-		long[]countArray;
+		long[] countArray;
 		countArray=new long[size];//creates the array to hold it all
 		int counter=0;
 		
 		Elem p= head.next;
 		while(p!=head){
-			countArray[counter]==p.count;
+			countArray[counter]=p.count;
 			p=p.next;
 			counter++;
 		}
